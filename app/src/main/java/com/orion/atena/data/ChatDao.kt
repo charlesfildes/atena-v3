@@ -1,5 +1,7 @@
 package com.orion.atena.data
 
+import com.orion.atena.data.model.ChatMessage
+import com.orion.atena.data.model.ChatSession
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 

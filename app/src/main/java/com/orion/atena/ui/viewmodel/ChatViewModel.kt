@@ -138,4 +138,23 @@ class ChatViewModel(
     fun selectText(text: String?) { _selectedText.value = text }
     fun startQuote(message: ChatMessage) { _quotingMessage.value = message; _selectedText.value = null }
     fun cancelQuote() { _quotingMessage.value = null; _selectedText.value = null }
+fun sendMessage(userPrompt: String) {
+    if (userPrompt.isBlank()) return
+
+    viewModelScope.launch {
+        val userMessage = ChatMessage(
+            role = "user",
+            content = userPrompt
+        )
+        chatDao.insertMessage(
+            MessageEntity(
+                id = userMessage.id,
+                chatId = currentChatId ?: "1",
+                role = userMessage.role,
+                content = userMessage.content,
+                timestamp = userMessage.timestamp
+            )
+        )
+    }
+}
 }
